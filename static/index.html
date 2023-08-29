@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Polling App</title>
+</head>
+<body>
+  <h1 id="pvt"></h1>
+  <h1>Real-Time Polling App</h1>
+  <small id="msg"></small>
+  <p>Vote Count: <span id="voteCount">0</span></p>
+  <button id="voteButton">Vote</button>
+
+  <input type="text" id="myMsg">
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    socket.on('voteCount', (count) => {
+      document.getElementById('voteCount').textContent = count;
+    });
+
+    socket.on('msg',(message)=>{
+      document.getElementById('msg').innerHTML=message;
+    })
+
+    socket.on('pvt',(message)=>{
+      document.getElementById('pvt').innerHTML=message;
+    })
+
+    socket.on('broadcastmessage',(message)=>{
+      let box=document.createElement('div');
+      box.id='message'
+      document.body.appendChild(box);
+      box.innerHTML=message;
+    })
+
+    document.getElementById('voteButton').addEventListener('click', () => {
+      socket.emit('vote',document.getElementById('myMsg').value);
+    });
+  </script>
+</body>
+</html>
