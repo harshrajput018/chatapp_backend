@@ -91,4 +91,4 @@ Router.get('/',async(req,res)=>{
 })
 
 
-module.exports = {Router}
+module.exports = Router

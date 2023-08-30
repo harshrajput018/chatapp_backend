@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose')
 const cors= require('cors')
 const jwt = require('jsonwebtoken')
+const User = require('../models/user')
 
 const friendsRouter = express.Router();
 
@@ -14,13 +15,7 @@ const db=mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-const userSchema = new mongoose.Schema({
-    username: String,
-    email: String,
-    password: String,
-  });
-  
-  const User = mongoose.model('User', userSchema);
+
 
 
 

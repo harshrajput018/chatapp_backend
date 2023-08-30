@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors= require('cors')
 const jwt= require('jsonwebtoken')
 const bcrypt= require('bcrypt')
+const User = require('../models/user')
 
 
 const Router = express.Router();
@@ -19,13 +20,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Define User Schema
-const userSchema = new mongoose.Schema({
-  username: String,
-  email: String,
-  password: String,
-});
 
-const User = mongoose.model('User', userSchema);
 
 // Register a new user
 Router.post('/register', async (req, res) => {
@@ -87,4 +82,4 @@ Router.get('/allusers',async(req,res)=>{
 
 
 
-module.exports = {Router}
+module.exports = Router
