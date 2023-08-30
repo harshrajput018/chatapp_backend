@@ -5,9 +5,9 @@ const jwt= require('jsonwebtoken')
 const bcrypt= require('bcrypt')
 
 
-const app = express();
-app.use(express.json());
-app.use(cors());
+const Router = express.Router();
+Router.use(express.json());
+Router.use(cors());
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://harshrajput18:Harsh1827@cluster0.efkiy6x.mongodb.net/?retryWrites=true&w=majority', {
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // Register a new user
-app.post('/register', async (req, res) => {
+Router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
 
   const hashedPassword = await bcrypt.hash(password,10);
@@ -49,7 +49,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/login',async(req,res)=>{
+Router.post('/login',async(req,res)=>{
 
     const {username,password} = req.body;
 
@@ -79,13 +79,12 @@ app.post('/login',async(req,res)=>{
 
 })
 
-app.get('/allusers',async(req,res)=>{
+Router.get('/allusers',async(req,res)=>{
     const allusers = await User.find();
 
     res.json({allusers});
 })
 
-const PORT = 2001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+
+module.exports = {Router}

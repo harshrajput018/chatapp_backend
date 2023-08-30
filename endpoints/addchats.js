@@ -51,6 +51,4 @@ app.post('/',async(req,res)=>{
 
 })
 
-app.listen(8001,()=>{console.log('server is listening on port 8001')});
-
 module.exports= {Msg}

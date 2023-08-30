@@ -72,11 +72,11 @@ mongoose.connect('mongodb+srv://harshrajput18:Harsh1827@cluster0.efkiy6x.mongodb
 
 const db =  mongoose.connection;
 
-const app=express();
+const Router=express.Router();
 
-app.use(cors());
+Router.use(cors());
 
-app.get('/',async(req,res)=>{
+Router.get('/',async(req,res)=>{
  
 
     const user= jwt.verify(req.headers.from,'THISISMYSECRETKEY')
@@ -89,5 +89,6 @@ app.get('/',async(req,res)=>{
     res.json({msgs: msg})
     
 })
-app.listen(8002,console.log('app is listening at port 8002'))
 
+
+module.exports = {Router}

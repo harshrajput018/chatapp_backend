@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const cors= require('cors')
 const jwt = require('jsonwebtoken')
 
+const friendsRouter = express.Router();
+
 mongoose.connect('mongodb+srv://harshrajput18:Harsh1827@cluster0.efkiy6x.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -33,12 +35,12 @@ request : {type: Boolean, default: false}
 });
 const Friend = mongoose.model('Friend',friendSchema); 
 
-const app = express();
 
-app.use(express.json());
-app.use(cors())
 
-app.post('/request',async(req,res)=>{
+friendsRouter.use(express.json());
+friendsRouter.use(cors())
+
+friendsRouter.post('/request',async(req,res)=>{
 
     console.log(req.body);
 
@@ -61,7 +63,7 @@ app.post('/request',async(req,res)=>{
 
 })
 
-app.get('/getrequest',async(req,res)=>{
+friendsRouter.get('/getrequest',async(req,res)=>{
 
     const {token} = req.headers;
 
@@ -106,7 +108,7 @@ app.get('/getrequest',async(req,res)=>{
     else res.json({users:[]});
 })
 
-app.get('/getfriends',async(req,res)=>{
+friendsRouter.get('/getfriends',async(req,res)=>{
 
     const {token} = req.headers;
 
@@ -150,7 +152,7 @@ app.get('/getfriends',async(req,res)=>{
     else res.json({users:[]});
 })
 
-app.get('/accept',async(req,res)=>{
+friendsRouter.get('/accept',async(req,res)=>{
 
     const {token} = req.headers;
 
@@ -162,7 +164,7 @@ app.get('/accept',async(req,res)=>{
 
 })
 
-app.get('/reject',async(req,res)=>{
+friendsRouter.get('/reject',async(req,res)=>{
 
     const {token} = req.headers;
 
@@ -174,7 +176,5 @@ app.get('/reject',async(req,res)=>{
 
 })
 
-app.listen('9000',()=>{
-    console.log('server is listening at 9000');
-})
+module.exports = friendsRouter;
 

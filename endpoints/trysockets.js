@@ -25,8 +25,8 @@ const Msg = mongoose.model('Msg',msgSchema);
 
 const cors = require('cors');
 
-const app = express();
-const server = http.createServer(app);
+const Router = express.Router();
+const server = http.createServer(Router);
 const io = require("socket.io")(server, {
     cors: {
       origin: "http://localhost:3000",
@@ -35,7 +35,7 @@ const io = require("socket.io")(server, {
   });
 
 // Enable CORS
-app.use(cors());
+Router.use(cors());
 
 
 const mapsidtouid= new Map();
@@ -101,8 +101,4 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = 7001;
 
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
